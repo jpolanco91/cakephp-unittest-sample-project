@@ -6,15 +6,17 @@
     foreach ($tableData as $row) {
         $tableDataAsArray[] = $row->toArray();
     }
+
+    $tmpRow = $tableDataAsArray[0];
+    $tableKeys = array_keys($tmpRow);
 ?>
 <table>
+    <tr>
+        <?php foreach ($tableKeys as $tKey): ?>
+            <th><?= $tKey ?></th>
+        <?php endforeach ?>
+    </tr>
     <?php foreach ($tableDataAsArray as $row): ?>
-        <tr>
-            <?php foreach ($row as $key => $value): ?>
-                <th><?= $key ?></th>
-            <?php endforeach; ?>
-        </tr>
-
         <tr>
             <?php foreach ($row as $key => $value): ?>
                 <td>
