@@ -80,6 +80,18 @@ class UsersController extends AppController
 
     public function index() {
         $users = $this->Users->find()->all();
+        $tableKeys = [
+            'id',
+            'email',
+            'pass',
+            'enabled',
+            'activated',
+            'ac_code',
+            'role',
+            'created',
+            'modified',
+        ];
         $this->set(compact('users'));
+        $this->set(compact('tableKeys'));
     }
 }

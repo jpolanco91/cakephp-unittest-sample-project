@@ -29,13 +29,13 @@ use Cake\View\Exception\MissingTemplateException;
  *
  * @link https://book.cakephp.org/5/en/controllers/pages-controller.html
  */
-class EventPlannerController extends AppController
+class LocationsController extends AppController
 {
-    private $Events = null;
+    private $Locations = null;
 
     public function initialize(): void {
         parent::initialize();
-        $this->Events = $this->fetchTable('Events');
+        $this->Locations = $this->fetchTable('Locations');
     }
 
     /**
@@ -79,20 +79,20 @@ class EventPlannerController extends AppController
     }
 
     public function index() {
-        $events = $this->Events->find()->all();
+        $locations = $this->Locations->find()->all();
         $tableKeys = [
             'id',
             'user_id',
-            'location_id',
-            'exp_date',
             'title',
-            'description',
-            'url',
-            'complete',
+            'city',
+            'state',
+            'zip',
+            'address1',
+            'address2',
             'created',
-            'modified',
+            'modified'
         ];
-        $this->set(compact('events'));
+        $this->set(compact('locations'));
         $this->set(compact('tableKeys'));
     }
 }

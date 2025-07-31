@@ -60,6 +60,7 @@ return function (RouteBuilder $routes): void {
         // Custom controller for event planner project.
         $builder->connect('/event_planner', ['controller' => 'EventPlanner', 'action' => 'index']);
         $builder->connect('/event_planner/users', ['controller' => 'Users', 'action' => 'index']);
+        $builder->connect('/event_planner/locations', ['controller' => 'Locations', 'action' => 'index']);
 
         $builder->connect('/event_planner/*', 'EventPlanner::index');
 

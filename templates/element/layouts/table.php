@@ -6,9 +6,6 @@
     foreach ($tableData as $row) {
         $tableDataAsArray[] = $row->toArray();
     }
-
-    $tmpRow = $tableDataAsArray[0];
-    $tableKeys = array_keys($tmpRow);
 ?>
 <table>
     <tr>
