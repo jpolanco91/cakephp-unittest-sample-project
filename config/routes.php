@@ -58,11 +58,10 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
         // Custom controller for event planner project.
-        $builder->connect('/event_planner', ['controller' => 'EventPlanner', 'action' => 'index']);
+        $builder->connect('/event_planner/events', ['controller' => 'EventPlanner', 'action' => 'index']);
         $builder->connect('/event_planner/users', ['controller' => 'Users', 'action' => 'index']);
         $builder->connect('/event_planner/locations', ['controller' => 'Locations', 'action' => 'index']);
-
-        $builder->connect('/event_planner/*', 'EventPlanner::index');
+        $builder->redirect('/event_planner/*', '/event_planner/events', ['status' => 301]);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
