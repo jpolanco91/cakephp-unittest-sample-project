@@ -29,7 +29,7 @@ use Cake\View\Exception\MissingTemplateException;
  *
  * @link https://book.cakephp.org/5/en/controllers/pages-controller.html
  */
-class EventPlannerController extends AppController
+class EventsController extends AppController
 {
     private $Events = null;
 
@@ -94,5 +94,40 @@ class EventPlannerController extends AppController
         ];
         $this->set(compact('events'));
         $this->set(compact('tableKeys'));
+    }
+
+    public function edit($id) {
+        $event = $this->Events->findById($id)->firstOrFail();
+
+        if ($this->request->is(['post', 'put'])) {
+            $this->Events->patchEntity($event, $this->request->getData());
+
+            if ($this->Events->save($event)) {
+                $this->Flash->success(__('Your event has been saved successfully'));
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('Unable to update your event.'));
+        }
+
+        $this->set('event', $event);
+    }
+
+    public function add() {
+        $event = $this->Events->newEmptyEntity();
+
+        if ($this->request->is('post')) {
+            $event = $this->Events->patchEntity($event, $this->request->getData());
+
+            if ($this->Events->save($event)) {
+                $this->Flash->success(__('Event added successfully'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('Error adding event'));
+        }
+
+        $this->set('event', $event);
     }
 }

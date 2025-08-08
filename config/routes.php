@@ -49,19 +49,18 @@ return function (RouteBuilder $routes): void {
      */
     $routes->setRouteClass(DashedRoute::class);
 
-    $routes->scope('/', function (RouteBuilder $builder): void {
+    $routes->scope('/eventPlanner', function (RouteBuilder $builder): void {
         /*
          * Here, we are connecting '/' (base path) to a controller called 'Pages',
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/', ['controller' => 'Events', 'action' => 'index']);
 
         // Custom controller for event planner project.
-        $builder->connect('/event_planner/events', ['controller' => 'EventPlanner', 'action' => 'index']);
-        $builder->connect('/event_planner/users', ['controller' => 'Users', 'action' => 'index']);
-        $builder->connect('/event_planner/locations', ['controller' => 'Locations', 'action' => 'index']);
-        $builder->redirect('/event_planner/*', '/event_planner/events', ['status' => 301]);
+        $builder->connect('/events', ['controller' => 'Events', 'action' => 'index']);
+        $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
+        $builder->connect('/locations', ['controller' => 'Locations', 'action' => 'index']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
