@@ -130,4 +130,16 @@ class EventsController extends AppController
 
         $this->set('event', $event);
     }
+
+    public function delete($id) {
+        $event = $this->Events->findById($id)->firstOrFail();
+
+        if ($this->Events->delete($event)) {
+            $this->Flash->success(__('Event deleted successfully'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $this->Flash->error(__('Error deleting event'));
+    }
 }
