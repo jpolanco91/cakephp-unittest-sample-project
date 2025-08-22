@@ -94,4 +94,51 @@ class UsersController extends AppController
         $this->set(compact('users'));
         $this->set(compact('tableKeys'));
     }
+
+    public function edit($id) {
+        $user = $this->Users->findById($id)->firstOrFail();
+
+        if ($this->request->is(['post', 'put'])) {
+            $this->Users->patchEntity($user, $this->request->getData());
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Your user has been saved successfully'));
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('Unable to update your user.'));
+        }
+
+        $this->set('user', $user);
+    }
+
+    public function add() {
+        $user = $this->Users->newEmptyEntity();
+
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('User added successfully'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('Error adding user'));
+        }
+
+        $this->set('user', $user);
+    }
+
+    public function delete($id) {
+        $user = $this->Users->findById($id)->firstOrFail();
+
+        if ($this->Users->delete($user)) {
+            $this->Flash->success(__('User deleted successfully'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $this->Flash->error(__('Error deleting user'));
+    }
 }
