@@ -95,4 +95,51 @@ class LocationsController extends AppController
         $this->set(compact('locations'));
         $this->set(compact('tableKeys'));
     }
+
+    public function edit($id) {
+        $location = $this->Locations->findById($id)->firstOrFail();
+
+        if ($this->request->is(['post', 'put'])) {
+            $this->Locations->patchEntity($location, $this->request->getData());
+
+            if ($this->Locations->save($location)) {
+                $this->Flash->success(__('Your location has been saved successfully'));
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('Unable to update your location.'));
+        }
+
+        $this->set('location', $location);
+    }
+
+    public function add() {
+        $location = $this->Locations->newEmptyEntity();
+
+        if ($this->request->is('post')) {
+            $location = $this->Locations->patchEntity($location, $this->request->getData());
+
+            if ($this->Locations->save($location)) {
+                $this->Flash->success(__('Location added successfully'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('Error adding location'));
+        }
+
+        $this->set('location', $location);
+    }
+
+    public function delete($id) {
+        $location = $this->Locations->findById($id)->firstOrFail();
+
+        if ($this->Locations->delete($location)) {
+            $this->Flash->success(__('Location deleted successfully'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $this->Flash->error(__('Error deleting location'));
+    }
 }
