@@ -53,3 +53,4 @@ yarn-error.log
 
 # SQLite database
 event_planner.db
+test_event_planner.db
