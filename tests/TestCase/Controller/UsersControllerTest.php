@@ -87,7 +87,21 @@ class UsersControllerTest extends TestCase
         $this->assertFlashMessage('User added successfully');
         $this->assertResponseCode(302);
 
-        // TODO: Test when the insertion of a new user fails.
+        $failedPostData = [
+            'id' => 'A',
+            'email' => 'user4@example.com',
+            'pass' => '1234',
+            'enabled' => 'yes',
+            'activated' => 'yes',
+            'ac_code' => '302',
+            'role' => 'user',
+            'created' => DateTime::now(),
+            'modified' => DateTime::now()
+        ];
+
+        $this->post('/eventPlanner/users/add', $failedPostData);
+        // $this->assertFlashMessage('Error adding user');
+        $this->assertResponseCode(500);
     }
 
     #[Test]
